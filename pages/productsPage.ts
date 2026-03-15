@@ -1,0 +1,61 @@
+import { Page, Locator, expect } from '@playwright/test';
+import { BasePage } from './basePage';
+
+export class ProductsPage extends BasePage {
+    readonly allProductsTitle: Locator;
+    readonly searchInput: Locator;
+    readonly searchBtn: Locator;
+    readonly searchedProductsTitle: Locator;
+    readonly productList: Locator;
+    readonly firstProductViewLink: Locator;
+    
+    // Product Detail Elements
+    readonly productName: Locator;
+    readonly productCategory: Locator;
+    readonly productPrice: Locator;
+    readonly productAvailability: Locator;
+    readonly productCondition: Locator;
+    readonly productBrand: Locator;
+    readonly quantityInput: Locator;
+    readonly addToCartBtn: Locator;
+
+    // Review Elements
+    readonly reviewNameInput: Locator;
+    readonly reviewEmailInput: Locator;
+    readonly reviewMessageInput: Locator;
+    readonly reviewSubmitBtn: Locator;
+    readonly reviewSuccessMsg: Locator;
+
+    constructor(page: Page) {
+        super(page);
+        this.allProductsTitle = page.locator('text=All Products');
+        this.searchInput = page.locator('#search_product');
+        this.searchBtn = page.locator('#submit_search');
+        this.searchedProductsTitle = page.locator('text=Searched Products');
+        this.productList = page.locator('.features_items .col-sm-4');
+        this.firstProductViewLink = page.locator('.choose a').first();
+        
+        // Product Details
+        this.productName = page.locator('.product-information h2');
+        this.productCategory = page.locator('.product-information p').filter({ hasText: 'Category' });
+        this.productPrice = page.locator('.product-information span span');
+        this.productAvailability = page.locator('.product-information p').filter({ hasText: 'Availability' });
+        this.productCondition = page.locator('.product-information p').filter({ hasText: 'Condition' });
+        this.productBrand = page.locator('.product-information p').filter({ hasText: 'Brand' });
+        this.quantityInput = page.locator('#quantity');
+        this.addToCartBtn = page.locator('button.cart');
+
+        // Review
+        this.reviewNameInput = page.locator('#name');
+        this.reviewEmailInput = page.locator('#email');
+        this.reviewMessageInput = page.locator('#review');
+        this.reviewSubmitBtn = page.locator('#button-review');
+        this.reviewSuccessMsg = page.locator('text=Thank you for your review.');
+    }
+
+    async searchProduct(productName: string) {
+        await this.searchInput.fill(productName);
+        await this.searchBtn.click();
+        await this.waitForPageLoad();
+    }
+}

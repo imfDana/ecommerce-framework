@@ -1,0 +1,27 @@
+import { Page, Locator } from '@playwright/test';
+import { BasePage } from './basePage';
+
+export class HomePage extends BasePage {
+    readonly signupLoginBtn: Locator;
+    readonly contactUsBtn: Locator;
+    readonly productsBtn: Locator;
+    readonly testCasesBtn: Locator;
+
+    constructor(page: Page) {
+        super(page);
+        this.signupLoginBtn = page.locator('a[href="/login"]');
+        this.contactUsBtn = page.locator('a[href="/contact_us"]');
+        this.productsBtn = page.locator('a[href="/products"]');
+        this.testCasesBtn = page.locator('a[href="/test_cases"]');
+    }
+
+    async goto() {
+        await this.page.goto('https://automationexercise.com');
+        await this.waitForPageLoad();
+    }
+
+    async clickSignupLogin() {
+        await this.signupLoginBtn.click();
+        await this.waitForPageLoad();
+    }
+}
