@@ -1,14 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/base';
 import { HomePage } from '../pages/homePage';
 import { ContactUsPage } from '../pages/contactUsPage';
 import * as path from 'path';
 import * as fs from 'fs';
 
 test('Test Case 6: Contact Us Form', async ({ page }) => {
-    // Block Google Ads
-    await page.route('**/*googlesyndication.com/**', route => route.abort());
-    await page.route('**/*doubleclick.net/**', route => route.abort());
-
     const homePage = new HomePage(page);
     const contactUsPage = new ContactUsPage(page);
 
@@ -26,7 +22,7 @@ test('Test Case 6: Contact Us Form', async ({ page }) => {
         await contactUsPage.fillContactForm('Test User', 'test@test.com', 'Subject', 'Message body');
         
         // Create a dummy file to upload
-        const tempFilePath = path.join(__dirname, 'temp.txt');
+        const tempFilePath = path.join(__dirname, 'temp_upload.txt');
         fs.writeFileSync(tempFilePath, 'dummy file content');
         
         await contactUsPage.uploadFileInput.setInputFiles(tempFilePath);
@@ -40,8 +36,6 @@ test('Test Case 6: Contact Us Form', async ({ page }) => {
     await test.step('10. Verify success message & 11. Click Home button', async () => {
         await expect(contactUsPage.successMsg).toHaveText('Success! Your details have been submitted successfully.');
         await contactUsPage.homeBtn.click();
-        
-        await contactUsPage.bypassAds();
         await expect(page).toHaveURL('https://automationexercise.com/');
     });
 });

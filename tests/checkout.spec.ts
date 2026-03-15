@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/base';
 import { HomePage } from '../pages/homePage';
 import { LoginSignupPage } from '../pages/loginSignupPage';
 import { CartPage } from '../pages/cartPage';
@@ -16,7 +16,6 @@ test.describe('Checkout Flows', () => {
         const user = generateUser();
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
             await expect(page).toHaveURL('https://automationexercise.com/');
         });
 
@@ -28,9 +27,8 @@ test.describe('Checkout Flows', () => {
         });
 
         await test.step('6. Verify ACCOUNT CREATED! & click Continue', async () => {
-            await expect(page.locator('[data-qa="account-created"]')).toBeVisible();
-            await page.locator('[data-qa="continue-button"]').click();
-            if (page.url().includes('#google_vignette')) await homePage.goto();
+            await expect(page.getByTestId('account-created')).toBeVisible();
+            await page.getByTestId('continue-button').click();
         });
 
         await test.step('7. Verify Logged in as username', async () => {
@@ -39,8 +37,7 @@ test.describe('Checkout Flows', () => {
 
         await test.step('8. Add products to cart & 9. Click Cart', async () => {
             await page.locator('.productinfo.text-center').first().hover();
-            // Force click in case of overlaying ad
-            await page.locator('.overlay-content .add-to-cart').first().click({ force: true });
+            await page.locator('.overlay-content .add-to-cart').first().click();
             await page.locator('u', { hasText: 'View Cart' }).click();
         });
 
@@ -67,7 +64,7 @@ test.describe('Checkout Flows', () => {
         await test.step('17. Verify success message & 18. Delete Account', async () => {
             await expect(checkoutPage.orderPlacedSuccessMsg).toBeVisible();
             await homePage.clickDeleteAccount();
-            await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
+            await expect(page.getByTestId('account-deleted')).toBeVisible();
         });
     });
 
@@ -81,7 +78,6 @@ test.describe('Checkout Flows', () => {
 
         await test.step('Setup API', async () => {
             await apiUtils.createAccount(user);
-            await homePage.goto();
         });
 
         await test.step('4. Click Signup / Login button & 5. Fill email, password and click Login', async () => {
@@ -95,8 +91,7 @@ test.describe('Checkout Flows', () => {
 
         await test.step('7. Add products to cart & 8. Click Cart button', async () => {
             await page.locator('.productinfo.text-center').first().hover();
-            // Force click in case of overlaying ad
-            await page.locator('.overlay-content .add-to-cart').first().click({ force: true });
+            await page.locator('.overlay-content .add-to-cart').first().click();
             await page.locator('u', { hasText: 'View Cart' }).click();
         });
 
@@ -119,7 +114,7 @@ test.describe('Checkout Flows', () => {
         await test.step('15. Verify success & 16. Delete Account', async () => {
             await expect(checkoutPage.orderPlacedSuccessMsg).toBeVisible();
             await homePage.clickDeleteAccount();
-            await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
+            await expect(page.getByTestId('account-deleted')).toBeVisible();
         });
     });
 
@@ -133,15 +128,13 @@ test.describe('Checkout Flows', () => {
 
         await test.step('Setup user and login via API', async () => {
             await apiUtils.createAccount(user);
-            await homePage.goto();
             await homePage.clickSignupLogin();
             await loginSignupPage.login(user.email, user.password);
         });
 
         await test.step('4-18. Add product, checkout, and pay', async () => {
             await page.locator('.productinfo.text-center').first().hover();
-            // Force click in case of overlaying ad
-            await page.locator('.overlay-content .add-to-cart').first().click({ force: true });
+            await page.locator('.overlay-content .add-to-cart').first().click();
             await page.locator('u', { hasText: 'View Cart' }).click();
             await cartPage.proceedToCheckoutBtn.click();
             await checkoutPage.commentTextarea.fill('Test');
@@ -159,7 +152,6 @@ test.describe('Checkout Flows', () => {
 
         await test.step('20. Click Continue & 21. Delete Account', async () => {
             await checkoutPage.continueBtn.click();
-            if (page.url().includes('#google_vignette')) await homePage.goto();
             await homePage.clickDeleteAccount();
         });
     });

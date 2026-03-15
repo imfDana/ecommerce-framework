@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/base';
 import { HomePage } from '../pages/homePage';
 import { LoginSignupPage } from '../pages/loginSignupPage';
 import { generateUser } from '../data/dataGenerator';
@@ -35,18 +35,11 @@ test.describe('Authentication Tests', () => {
         await loginSignupPage.clickCreateAccount();
 
         // 14. Verify that 'ACCOUNT CREATED!' is visible
-        await expect(page.locator('[data-qa="account-created"]')).toBeVisible();
+        await expect(page.getByTestId('account-created')).toBeVisible();
 
         // 15. Click 'Continue' button
-        await page.locator('[data-qa="continue-button"]').click();
+        await page.getByTestId('continue-button').click();
         await homePage.waitForPageLoad();
-
-        // Handle possible Google ads using locator logic or reloading, but for now we expect continue to navigate
-        // Sometimes continue button goes to a "#google_vignette", let's handle it gracefully
-        if (page.url().includes('#google_vignette')) {
-            await page.goto('https://automationexercise.com/');
-            await homePage.waitForPageLoad();
-        }
 
         // 16. Verify that 'Logged in as username' is visible
         await expect(homePage.loggedInAsText).toBeVisible();
@@ -56,8 +49,8 @@ test.describe('Authentication Tests', () => {
         await homePage.clickDeleteAccount();
 
         // 18. Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button
-        await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
-        await page.locator('[data-qa="continue-button"]').click();
+        await expect(page.getByTestId('account-deleted')).toBeVisible();
+        await page.getByTestId('continue-button').click();
     });
 
 });

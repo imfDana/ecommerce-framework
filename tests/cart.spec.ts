@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/base';
 import { HomePage } from '../pages/homePage';
 import { ProductsPage } from '../pages/productsPage';
 import { CartPage } from '../pages/cartPage';
@@ -96,8 +96,6 @@ test.describe('Cart Features Tests', () => {
         });
 
         await test.step('8. Verify that product is removed from the cart', async () => {
-            // Give it a moment to update DOM
-            await page.waitForTimeout(1000); 
             await expect(page.locator('#empty_cart')).toBeVisible();
         });
     });

@@ -45,28 +45,28 @@ export class LoginSignupPage extends BasePage {
 
         // Form
         this.genderRadio = page.locator('#id_gender1');
-        this.passwordInput = page.locator('[data-qa="password"]');
-        this.daySelect = page.locator('[data-qa="days"]');
-        this.monthSelect = page.locator('[data-qa="months"]');
-        this.yearSelect = page.locator('[data-qa="years"]');
+        this.passwordInput = page.getByTestId('password');
+        this.daySelect = page.getByTestId('days');
+        this.monthSelect = page.getByTestId('months');
+        this.yearSelect = page.getByTestId('years');
         this.newsletterCheckbox = page.locator('#newsletter');
         this.specialOffersCheckbox = page.locator('#optin');
-        this.firstNameInput = page.locator('[data-qa="first_name"]');
-        this.lastNameInput = page.locator('[data-qa="last_name"]');
-        this.companyInput = page.locator('[data-qa="company"]');
-        this.address1Input = page.locator('[data-qa="address"]');
-        this.address2Input = page.locator('[data-qa="address2"]');
-        this.countrySelect = page.locator('[data-qa="country"]');
-        this.stateInput = page.locator('[data-qa="state"]');
-        this.cityInput = page.locator('[data-qa="city"]');
-        this.zipcodeInput = page.locator('[data-qa="zipcode"]');
-        this.mobileNumberInput = page.locator('[data-qa="mobile_number"]');
-        this.createAccountBtn = page.locator('[data-qa="create-account"]');
+        this.firstNameInput = page.getByTestId('first_name');
+        this.lastNameInput = page.getByTestId('last_name');
+        this.companyInput = page.getByTestId('company');
+        this.address1Input = page.getByTestId('address');
+        this.address2Input = page.getByTestId('address2');
+        this.countrySelect = page.getByTestId('country');
+        this.stateInput = page.getByTestId('state');
+        this.cityInput = page.getByTestId('city');
+        this.zipcodeInput = page.getByTestId('zipcode');
+        this.mobileNumberInput = page.getByTestId('mobile_number');
+        this.createAccountBtn = page.getByTestId('create-account');
 
         // Login
-        this.loginEmailInput = page.locator('[data-qa="login-email"]');
-        this.loginPasswordInput = page.locator('[data-qa="login-password"]');
-        this.loginBtn = page.locator('[data-qa="login-button"]');
+        this.loginEmailInput = page.getByTestId('login-email');
+        this.loginPasswordInput = page.getByTestId('login-password');
+        this.loginBtn = page.getByTestId('login-button');
         this.loginToYourAccountText = page.locator('text=Login to your account');
     }
 
@@ -79,7 +79,6 @@ export class LoginSignupPage extends BasePage {
     }
 
     async fillSignupForm(user: UserData) {
-        // Assume gender is 'Mr' for now
         await this.genderRadio.check();
         await this.passwordInput.fill(user.password);
         await this.daySelect.selectOption(user.birth_date);

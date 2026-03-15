@@ -3,12 +3,16 @@ import { BasePage } from './basePage';
 
 export class ProductsPage extends BasePage {
     readonly allProductsTitle: Locator;
+    readonly allBrandsTitle: Locator;
+    readonly poloBrand: Locator;
+    readonly hmBrand: Locator;
     readonly searchInput: Locator;
     readonly searchBtn: Locator;
     readonly searchedProductsTitle: Locator;
     readonly productList: Locator;
     readonly firstProductViewLink: Locator;
-    
+    readonly brandLinks: Locator;
+
     // Product Detail Elements
     readonly productName: Locator;
     readonly productCategory: Locator;
@@ -29,12 +33,17 @@ export class ProductsPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.allProductsTitle = page.locator('text=All Products');
+
         this.searchInput = page.locator('#search_product');
         this.searchBtn = page.locator('#submit_search');
         this.searchedProductsTitle = page.locator('text=Searched Products');
         this.productList = page.locator('.features_items .col-sm-4');
         this.firstProductViewLink = page.locator('.choose a').first();
-        
+        this.allBrandsTitle = page.getByRole('heading', { name: 'Brands' });
+        this.poloBrand = page.getByRole('link', { name: '(6) Polo' });
+        this.hmBrand = page.getByRole('link', { name: '(5) H&M' });
+        this.brandLinks = page.locator('.brands-name a');
+
         // Product Details
         this.productName = page.locator('.product-information h2');
         this.productCategory = page.locator('.product-information p').filter({ hasText: 'Category' });
@@ -58,4 +67,34 @@ export class ProductsPage extends BasePage {
         await this.searchBtn.click();
         await this.waitForPageLoad();
     }
-}
+
+    async selectRandomBrand(excludeBrandName?: string): Promise<string> {
+        // 1. Aseguramos que los enlaces estén visibles
+        const brandLinks = this.brandLinks;
+        await brandLinks.first().waitFor({ state: 'visible' });
+
+        // 2. Si hay que excluir una marca, filtramos el locator directamente
+        let targetLocators = brandLinks;
+        if (excludeBrandName) {
+            // Filtramos para ignorar el elemento que contiene el nombre de la marca excluida
+            targetLocators = brandLinks.filter({ hasNotText: excludeBrandName });
+        }
+
+        const count = await targetLocators.count();
+        if (count === 0) throw new Error(`No brands found available (excluding: ${excludeBrandName})`);
+
+        // 3. Elegimos al azar entre los que quedaron
+        const randomIndex = Math.floor(Math.random() * count);
+        const selectedElement = targetLocators.nth(randomIndex);
+
+        // 4. Extraemos el texto limpio (sacamos el "(6)")
+        const fullText = await selectedElement.innerText();
+        const brandName = fullText.replace(/^\(\d+\)\s*/, '').trim();
+
+        // 5. Click y espera
+        await selectedElement.click();
+        await this.waitForPageLoad();
+
+        return brandName;
+    }
+};
