@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/base';
 import { HomePage } from '../pages/homePage';
 import { LoginSignupPage } from '../pages/loginSignupPage';
 import { generateUser } from '../data/dataGenerator';
@@ -48,7 +48,7 @@ test.describe('Authentication Tests', () => {
         });
 
         await test.step('10. Verify that ACCOUNT DELETED! is visible', async () => {
-            await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
+            await expect(page.getByTestId('account-deleted')).toBeVisible();
         });
     });
 

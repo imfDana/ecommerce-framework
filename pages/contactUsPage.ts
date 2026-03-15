@@ -15,14 +15,15 @@ export class ContactUsPage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.getInTouchText = page.locator('text=GET IN TOUCH');
-        this.nameInput = page.locator('[data-qa="name"]');
-        this.emailInput = page.locator('[data-qa="email"]');
-        this.subjectInput = page.locator('[data-qa="subject"]');
-        this.messageInput = page.locator('[data-qa="message"]');
+        this.nameInput = page.getByTestId('name');
+        this.emailInput = page.getByTestId('email');
+        this.subjectInput = page.getByTestId('subject');
+        this.messageInput = page.getByTestId('message');
         this.uploadFileInput = page.locator('input[name="upload_file"]');
-        this.submitBtn = page.locator('[data-qa="submit-button"]');
-        this.successMsg = page.locator('.status.alert-success');
-        this.homeBtn = page.locator('.btn-success');
+        this.submitBtn = page.getByTestId('submit-button');
+        // Handle locator strictness and dynamics
+        this.successMsg = page.locator('.status.alert-success').first();
+        this.homeBtn = page.locator('a.btn-success');
     }
 
     async fillContactForm(name: string, email: string, subject: string, message: string) {

@@ -26,15 +26,15 @@ export class CheckoutPage extends BasePage {
         this.placeOrderBtn = page.locator('a[href="/payment"]');
 
         // Payment
-        this.nameOnCardInput = page.locator('[data-qa="name-on-card"]');
-        this.cardNumberInput = page.locator('[data-qa="card-number"]');
-        this.cvcInput = page.locator('[data-qa="cvc"]');
-        this.expiryMonthInput = page.locator('[data-qa="expiry-month"]');
-        this.expiryYearInput = page.locator('[data-qa="expiry-year"]');
-        this.payAndConfirmBtn = page.locator('[data-qa="pay-button"]');
-        this.orderPlacedSuccessMsg = page.locator('[data-qa="order-placed"]');
+        this.nameOnCardInput = page.getByTestId('name-on-card');
+        this.cardNumberInput = page.getByTestId('card-number');
+        this.cvcInput = page.getByTestId('cvc');
+        this.expiryMonthInput = page.getByTestId('expiry-month');
+        this.expiryYearInput = page.getByTestId('expiry-year');
+        this.payAndConfirmBtn = page.getByTestId('pay-button');
+        this.orderPlacedSuccessMsg = page.getByTestId('order-placed');
         this.downloadInvoiceBtn = page.locator('a.check_out', { hasText: 'Download Invoice' });
-        this.continueBtn = page.locator('[data-qa="continue-button"]');
+        this.continueBtn = page.getByTestId('continue-button');
     }
 
     async fillPaymentDetails(name: string, card: string, cvc: string, month: string, year: string) {

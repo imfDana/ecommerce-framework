@@ -1,4 +1,4 @@
-import { test as setup, expect } from '@playwright/test';
+import { test as setup, expect } from '../fixtures/base';
 import { APIUtils } from '../utils/apiUtils';
 import { generateUser } from '../data/dataGenerator';
 import { HomePage } from '../pages/homePage';

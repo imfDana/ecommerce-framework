@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/base';
 import { HomePage } from '../pages/homePage';
 import { LoginSignupPage } from '../pages/loginSignupPage';
 import { CartPage } from '../pages/cartPage';
@@ -15,12 +15,11 @@ test.describe('Advanced Checkout Flows', () => {
         const user = generateUser();
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
         });
 
         await test.step('4. Add products to cart & 5. Click Cart button', async () => {
             await page.locator('.productinfo.text-center').first().hover();
-            await page.locator('.overlay-content .add-to-cart').first().click({ force: true });
+            await page.locator('.overlay-content .add-to-cart').first().click();
             await page.locator('u', { hasText: 'View Cart' }).click();
         });
 
@@ -40,9 +39,8 @@ test.describe('Advanced Checkout Flows', () => {
         });
 
         await test.step('10. Verify ACCOUNT CREATED! & click Continue', async () => {
-            await expect(page.locator('[data-qa="account-created"]')).toBeVisible();
-            await page.locator('[data-qa="continue-button"]').click();
-            if (page.url().includes('#google_vignette')) await homePage.goto();
+            await expect(page.getByTestId('account-created')).toBeVisible();
+            await page.getByTestId('continue-button').click();
         });
 
         await test.step('11. Verify Logged in & 12. Click Cart button', async () => {
@@ -69,7 +67,7 @@ test.describe('Advanced Checkout Flows', () => {
         await test.step('18. Verify success & 19. Delete Account', async () => {
             await expect(checkoutPage.orderPlacedSuccessMsg).toBeVisible();
             await homePage.clickDeleteAccount();
-            await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
+            await expect(page.getByTestId('account-deleted')).toBeVisible();
         });
     });
 
@@ -81,7 +79,6 @@ test.describe('Advanced Checkout Flows', () => {
         const user = generateUser();
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
         });
 
         await test.step('4. Click Signup / Login button & 5. Fill details', async () => {
@@ -92,14 +89,13 @@ test.describe('Advanced Checkout Flows', () => {
         });
 
         await test.step('6. Verify ACCOUNT CREATED! & 7. Verify Logged in', async () => {
-            await page.locator('[data-qa="continue-button"]').click();
-            if (page.url().includes('#google_vignette')) await homePage.goto();
+            await page.getByTestId('continue-button').click();
             await expect(homePage.loggedInAsText).toBeVisible();
         });
 
         await test.step('8. Add products to cart & 9. Click Cart button', async () => {
             await page.locator('.productinfo.text-center').first().hover();
-            await page.locator('.overlay-content .add-to-cart').first().click({ force: true });
+            await page.locator('.overlay-content .add-to-cart').first().click();
             await page.locator('u', { hasText: 'View Cart' }).click();
         });
 
@@ -115,7 +111,7 @@ test.describe('Advanced Checkout Flows', () => {
 
         await test.step('14. Click Delete Account button', async () => {
             await homePage.clickDeleteAccount();
-            await expect(page.locator('[data-qa="account-deleted"]')).toBeVisible();
+            await expect(page.getByTestId('account-deleted')).toBeVisible();
         });
     });
 });

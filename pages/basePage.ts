@@ -17,14 +17,6 @@ export class BasePage {
         await this.page.waitForLoadState('domcontentloaded');
     }
 
-    // Bypass any full-screen vignette ads
-    async bypassAds() {
-        if (this.page.url().includes('#google_vignette')) {
-            await this.page.goto('https://automationexercise.com/');
-            await this.waitForPageLoad();
-        }
-    }
-
     async clickLogout() {
         await this.logoutBtn.click();
         await this.waitForPageLoad();
