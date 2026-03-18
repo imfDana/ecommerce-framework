@@ -40,6 +40,9 @@ export class SignupPage extends BasePage {
     // readonly deleteAccountBtn: Locator;
     readonly accountDeletedText: Locator;
 
+    // error messajes
+    readonly emailAlreadyExistError: Locator;
+
     constructor(page: Page) {
         super(page);
 
@@ -77,8 +80,10 @@ export class SignupPage extends BasePage {
         this.accountCreatedText = page.getByTestId('account-created');
         this.continueBtn = page.getByTestId('continue-button');
         // Delete Account
-        // this.deleteAccountBtn = page.getByRole('listitem').filter({ hasText: 'Delete Account' });
         this.accountDeletedText = page.getByTestId('account-deleted');
+
+        // error messages
+        this.emailAlreadyExistError = page.getByText('Email Address already exist!');
     }
 
     /** Fills the initial name + email fields on the Login/Signup page and submits. */
