@@ -22,7 +22,7 @@ test('Test Case 3: Login User with incorrect email and password', async ({ page 
     });
 
     await test.step('4. Click on Signup / Login button', async () => {
-        await loginPage.loginUser(invalidUser.email, invalidUser.password);
+        await loginPage.loginTopBarBtn.click();
     });
 
     await test.step('5. Verify Login to your account is visible', async () => {

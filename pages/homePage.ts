@@ -12,7 +12,7 @@ export class HomePage extends BasePage {
     constructor(page: Page) {
         super(page);
         this.signupLoginBtn = page.locator('header').locator('a[href="/login"]');
-        this.contactUsBtn = page.locator('header').locator('a[href="/contact_us"]');
+        this.contactUsBtn = page.getByRole('listitem').filter({ hasText: 'Contact us' });
         this.productsBtn = page.locator('header').locator('a[href="/products"]');
         this.testCasesBtn = page.locator('header').locator('a[href="/test_cases"]').first();
         this.homePageItems = page.getByRole('heading', { name: 'Features Items' });

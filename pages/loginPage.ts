@@ -4,7 +4,8 @@ import { BasePage } from './basePage';
 export class LoginPage extends BasePage {
     readonly loginEmailInput: Locator;
     readonly loginPasswordInput: Locator;
-    readonly loginBtn: Locator;
+    readonly loginTopBarBtn: Locator;
+    readonly loginFormBtn: Locator;
     readonly loginToYourAccountText: Locator;
     readonly wrongCredentialsError: Locator;
 
@@ -12,15 +13,16 @@ export class LoginPage extends BasePage {
         super(page);
         this.loginEmailInput = page.getByTestId('login-email');
         this.loginPasswordInput = page.getByTestId('login-password');
-        this.loginBtn = page.getByTestId('login-button');
+        this.loginTopBarBtn = page.getByRole('listitem').filter({ hasText: 'Signup / Login' });
+        this.loginFormBtn = page.getByTestId('login-button');
         this.loginToYourAccountText = page.locator('text=Login to your account');
-        this.wrongCredentialsError = page.locator('text=Your password is incorrect');
+        this.wrongCredentialsError = page.getByText('Your email or password is');
     }
 
     async loginUser(email: string, password: string) {
         await this.loginEmailInput.fill(email);
         await this.loginPasswordInput.fill(password);
-        await this.loginBtn.click();
+        await this.loginFormBtn.click();
         await this.waitForPageLoad();
     }
 }

@@ -18,9 +18,7 @@ test.describe('Authentication Tests', () => {
         });
 
         await test.step('1. Launch browser & 2. Navigate to url & 3. Verify home page', async () => {
-            await homePage.goto();
-            await expect(page).toHaveURL('https://automationexercise.com/');
-            await expect(page.locator('.features_items')).toBeVisible();
+            await homePage.navigateToHomePageSuccessfuly();
         });
 
         await test.step('4. Click on Signup / Login button & 5. Verify New User Signup! is visible', async () => {
@@ -33,8 +31,7 @@ test.describe('Authentication Tests', () => {
         });
 
         await test.step('8. Verify error Email Address already exist! is visible', async () => {
-            const errorMsg = page.locator('text=Email Address already exist!');
-            await expect(errorMsg).toBeVisible();
+            await expect(signupPage.emailAlreadyExistError).toBeVisible();
         });
 
         // Cleanup: Delete the account we created
