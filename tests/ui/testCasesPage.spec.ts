@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
 
 test('Test Case 7: Verify Test Cases Page', async ({ page }) => {
     const homePage = new HomePage(page);

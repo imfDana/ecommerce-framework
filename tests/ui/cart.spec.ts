@@ -1,7 +1,7 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
-import { ProductsPage } from '../pages/productsPage';
-import { CartPage } from '../pages/cartPage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
+import { ProductsPage } from '../../pages/productsPage';
+import { CartPage } from '../../pages/cartPage';
 
 test.describe('Cart Features Tests', () => {
 

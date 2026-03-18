@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
 
 test.describe('Subscription Tests', () => {
     test('Test Case 10: Verify Subscription in home page', async ({ page }) => {
