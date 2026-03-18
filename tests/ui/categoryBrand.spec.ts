@@ -1,6 +1,6 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
-import { ProductsPage } from '../pages/productsPage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
+import { ProductsPage } from '../../pages/productsPage';
 
 test.describe('Category & Brand Tests', () => {
 
@@ -8,8 +8,7 @@ test.describe('Category & Brand Tests', () => {
         const homePage = new HomePage(page);
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
-            await expect(page).toHaveURL('https://automationexercise.com/');
+            await homePage.navigateToHomePageSuccessfuly();
         });
 
         await test.step('4. Click on Women category & 5. Click on Dress sub-category', async () => {
@@ -39,7 +38,7 @@ test.describe('Category & Brand Tests', () => {
         let secondBrandSelected: string;
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
+            await homePage.navigateToHomePageSuccessfuly();
             await homePage.productsBtn.click();
         });
 
@@ -49,7 +48,6 @@ test.describe('Category & Brand Tests', () => {
 
         await test.step('5. Click on first brand & 6. Verify navigation', async () => {
             firstBrandSelected = await productsPage.selectRandomBrand();
-            // Verificamos que estamos en la página de marcas genérica
             await expect(page).toHaveURL(/.*brand_products\/.+/);
             await expect(page.locator('.features_items')).toBeVisible();
         });
@@ -60,12 +58,9 @@ test.describe('Category & Brand Tests', () => {
         });
 
         await test.step('8. Verify navigation to the second brand page', async () => {
-            // Validamos que la URL contenga el nombre de la nueva marca
-            // Usamos una expresión regular para que sea menos sensible a la codificación exacta
             const regex = new RegExp(`brand_products/${secondBrandSelected}`, 'i');
             await expect(page).toHaveURL(regex);
             await expect(page.locator('.features_items')).toBeVisible();
         });
     });
 });
-

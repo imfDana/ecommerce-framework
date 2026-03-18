@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
 
 test.describe('Scroll functionality', () => {
 

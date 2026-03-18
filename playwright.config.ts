@@ -1,5 +1,4 @@
 import { defineConfig, devices } from '@playwright/test';
-import * as path from 'path';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -30,19 +29,19 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     testIdAttribute: 'data-qa',
-    // Block common ad networks to prevent test flakiness from floating/vignette ads
     actionTimeout: 15000,
   },
 
   projects: [
     {
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,
+      name: 'ui',
+      testDir: './tests/ui',
+      use: { ...devices['Desktop Chrome'] },
     },
     {
-      name: 'chromium',
+      name: 'api',
+      testDir: './tests/api',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup'],
     },
   ],
 });

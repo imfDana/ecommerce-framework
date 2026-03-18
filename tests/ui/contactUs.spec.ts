@@ -1,8 +1,9 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
-import { ContactUsPage } from '../pages/contactUsPage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
+import { ContactUsPage } from '../../pages/contactUsPage';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as os from 'os';
 
 test('Test Case 6: Contact Us Form', async ({ page }) => {
     const homePage = new HomePage(page);
@@ -20,11 +21,11 @@ test('Test Case 6: Contact Us Form', async ({ page }) => {
 
     await test.step('6. Enter name, email, subject and message & 7. Upload file', async () => {
         await contactUsPage.fillContactForm('Test User', 'test@test.com', 'Subject', 'Message body');
-        
-        // Create a dummy file to upload
-        const tempFilePath = path.join(__dirname, 'temp_upload.txt');
+
+        // Create a temp file in OS temp directory (not in repo)
+        const tempFilePath = path.join(os.tmpdir(), 'e2e_upload_test.txt');
         fs.writeFileSync(tempFilePath, 'dummy file content');
-        
+
         await contactUsPage.uploadFileInput.setInputFiles(tempFilePath);
     });
 

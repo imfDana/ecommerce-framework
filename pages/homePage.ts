@@ -1,4 +1,4 @@
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './basePage';
 
 export class HomePage extends BasePage {
@@ -6,6 +6,8 @@ export class HomePage extends BasePage {
     readonly contactUsBtn: Locator;
     readonly productsBtn: Locator;
     readonly testCasesBtn: Locator;
+    readonly homePageItems: Locator;
+    readonly wrongCredentialsError: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -13,10 +15,18 @@ export class HomePage extends BasePage {
         this.contactUsBtn = page.locator('header').locator('a[href="/contact_us"]');
         this.productsBtn = page.locator('header').locator('a[href="/products"]');
         this.testCasesBtn = page.locator('header').locator('a[href="/test_cases"]').first();
+        this.homePageItems = page.getByRole('heading', { name: 'Features Items' });
+        this.wrongCredentialsError = page.locator('text=Your email or password is incorrect!');
     }
 
     async goto() {
-        await this.page.goto('https://automationexercise.com');
+        await this.page.goto('/');
+    }
+
+    async navigateToHomePageSuccessfuly() {
+        await this.page.goto('/');
+        await expect(this.page).toHaveURL(/.*automationexercise\.com\/?$/);
+        await expect(this.homePageItems).toBeVisible();
         await this.waitForPageLoad();
     }
 

@@ -1,6 +1,6 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
-import { ProductsPage } from '../pages/productsPage';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
+import { ProductsPage } from '../../pages/productsPage';
 
 test.describe('Products Tests', () => {
 

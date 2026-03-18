@@ -1,20 +1,21 @@
-import { test, expect } from '../fixtures/base';
-import { HomePage } from '../pages/homePage';
-import { LoginSignupPage } from '../pages/loginSignupPage';
-import { CartPage } from '../pages/cartPage';
-import { CheckoutPage } from '../pages/checkoutPage';
-import { generateUser } from '../data/dataGenerator';
+import { test, expect } from '../../fixtures/base';
+import { HomePage } from '../../pages/homePage';
+import { SignupPage } from '../../pages/signupPage';
+import { CartPage } from '../../pages/cartPage';
+import { CheckoutPage } from '../../pages/checkoutPage';
+import { generateUser } from '../../data/dataGenerator';
 
 test.describe('Advanced Checkout Flows', () => {
 
     test('Test Case 14: Place Order: Register while Checkout', async ({ page }) => {
         const homePage = new HomePage(page);
-        const loginSignupPage = new LoginSignupPage(page);
+        const signupPage = new SignupPage(page);
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
         const user = generateUser();
 
         await test.step('1-3 Setup', async () => {
+            await homePage.goto();
         });
 
         await test.step('4. Add products to cart & 5. Click Cart button', async () => {
@@ -33,9 +34,9 @@ test.describe('Advanced Checkout Flows', () => {
         });
 
         await test.step('9. Fill all details in Signup and create account', async () => {
-            await loginSignupPage.signupInitial(user.name, user.email);
-            await loginSignupPage.fillSignupForm(user);
-            await loginSignupPage.clickCreateAccount();
+            await signupPage.signupInitial(user.name, user.email);
+            await signupPage.fillSignupForm(user);
+            await signupPage.clickCreateAccount();
         });
 
         await test.step('10. Verify ACCOUNT CREATED! & click Continue', async () => {
@@ -73,19 +74,20 @@ test.describe('Advanced Checkout Flows', () => {
 
     test('Test Case 23: Verify address details in checkout page', async ({ page }) => {
         const homePage = new HomePage(page);
-        const loginSignupPage = new LoginSignupPage(page);
+        const signupPage = new SignupPage(page);
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
         const user = generateUser();
 
         await test.step('1-3 Setup', async () => {
+            await homePage.goto();
         });
 
         await test.step('4. Click Signup / Login button & 5. Fill details', async () => {
             await homePage.clickSignupLogin();
-            await loginSignupPage.signupInitial(user.name, user.email);
-            await loginSignupPage.fillSignupForm(user);
-            await loginSignupPage.clickCreateAccount();
+            await signupPage.signupInitial(user.name, user.email);
+            await signupPage.fillSignupForm(user);
+            await signupPage.clickCreateAccount();
         });
 
         await test.step('6. Verify ACCOUNT CREATED! & 7. Verify Logged in', async () => {

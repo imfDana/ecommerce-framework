@@ -8,9 +8,9 @@ export class BasePage {
 
     constructor(page: Page) {
         this.page = page;
-        this.loggedInAsText = page.locator('text=Logged in as');
-        this.deleteAccountBtn = page.locator('a[href="/delete_account"]');
-        this.logoutBtn = page.locator('a[href="/logout"]');
+        this.loggedInAsText = page.locator('header').locator('text=Logged in as');
+        this.deleteAccountBtn = page.locator('header').locator('a[href="/delete_account"]');
+        this.logoutBtn = page.locator('header').locator('a[href="/logout"]');
     }
 
     async waitForPageLoad() {
