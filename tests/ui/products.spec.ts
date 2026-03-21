@@ -76,7 +76,7 @@ test.describe('Products Tests', () => {
         });
 
         await test.step('6. Verify Write Your Review is visible', async () => {
-            await expect(page.locator('text=Write Your Review')).toBeVisible();
+            await expect(productsPage.writeYourReviewText).toBeVisible();
         });
 
         await test.step('7. Enter name, email and review & 8. Click Submit', async () => {

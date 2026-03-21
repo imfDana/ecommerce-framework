@@ -14,16 +14,15 @@ test.describe('Subscription Tests', () => {
         });
 
         await test.step('4. Scroll down to footer & 5. Verify text SUBSCRIPTION', async () => {
-            await expect(page.locator('h2:has-text("Subscription")')).toBeVisible();
+            await expect(homePage.subscriptionTitle).toBeVisible();
         });
 
         await test.step('6. Enter email address in input and click arrow button', async () => {
-            await page.locator('#susbscribe_email').fill('test_sub@test.com');
-            await page.locator('#subscribe').click();
+            await homePage.subscribe('test_sub@test.com');
         });
 
         await test.step('7. Verify success message You have been successfully subscribed! is visible', async () => {
-            await expect(page.locator('.alert-success')).toHaveText('You have been successfully subscribed!');
+            await expect(homePage.subscriptionSuccessMsg).toHaveText('You have been successfully subscribed!');
         });
     });
 
@@ -36,21 +35,20 @@ test.describe('Subscription Tests', () => {
         });
 
         await test.step('4. Click Cart button', async () => {
-            await page.locator('a[href="/view_cart"]').first().click();
+            await homePage.cartBtn.click();
             await homePage.waitForPageLoad();
         });
 
         await test.step('5. Scroll down to footer & 6. Verify text SUBSCRIPTION', async () => {
-            await expect(page.locator('h2:has-text("Subscription")')).toBeVisible();
+            await expect(homePage.subscriptionTitle).toBeVisible();
         });
-
-        await test.step('7. Enter email address in input and click arrow button', async () => {
-            await page.locator('#susbscribe_email').fill('test_sub_cart@test.com');
-            await page.locator('#subscribe').click();
-        });
+ 
+         await test.step('7. Enter email address in input and click arrow button', async () => {
+             await homePage.subscribe('test_sub_cart@test.com');
+         });
 
         await test.step('8. Verify success message', async () => {
-            await expect(page.locator('.alert-success')).toHaveText('You have been successfully subscribed!');
+            await expect(homePage.subscriptionSuccessMsg).toHaveText('You have been successfully subscribed!');
         });
     });
 });

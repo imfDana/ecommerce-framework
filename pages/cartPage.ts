@@ -5,12 +5,14 @@ export class CartPage extends BasePage {
     readonly cartRows: Locator;
     readonly proceedToCheckoutBtn: Locator;
     readonly registerLoginModalBtn: Locator;
+    readonly emptyCartMsg: Locator;
 
     constructor(page: Page) {
         super(page);
         this.cartRows = page.locator('#cart_info_table tbody tr');
         this.proceedToCheckoutBtn = page.locator('text=Proceed To Checkout');
         this.registerLoginModalBtn = page.locator('u', { hasText: 'Register / Login' });
+        this.emptyCartMsg = page.locator('#empty_cart');
     }
 
     async getCartItemQuantity(rowIndex: number): Promise<string> {

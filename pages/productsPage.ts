@@ -13,6 +13,19 @@ export class ProductsPage extends BasePage {
     readonly firstProductViewLink: Locator;
     readonly brandLinks: Locator;
 
+    // Categories
+    readonly categoryTitle: Locator;
+    readonly womenCategory: Locator;
+    readonly dressCategory: Locator;
+    readonly menCategory: Locator;
+    readonly tshirtCategory: Locator;
+
+    // Common product elements
+    readonly firstProductHover: Locator;
+    readonly firstProductAddToCartBtn: Locator;
+    readonly secondProductHover: Locator;
+    readonly secondProductAddToCartBtn: Locator;
+
     // Product Detail Elements
     readonly productName: Locator;
     readonly productCategory: Locator;
@@ -29,6 +42,7 @@ export class ProductsPage extends BasePage {
     readonly reviewMessageInput: Locator;
     readonly reviewSubmitBtn: Locator;
     readonly reviewSuccessMsg: Locator;
+    readonly writeYourReviewText: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -43,6 +57,19 @@ export class ProductsPage extends BasePage {
         this.poloBrand = page.getByRole('link', { name: '(6) Polo' });
         this.hmBrand = page.getByRole('link', { name: '(5) H&M' });
         this.brandLinks = page.locator('.brands-name a');
+
+        // Categories
+        this.categoryTitle = page.locator('h2.title');
+        this.womenCategory = page.locator('a[href="#Women"]');
+        this.dressCategory = page.locator('a[href="/category_products/1"]');
+        this.menCategory = page.locator('a[href="#Men"]');
+        this.tshirtCategory = page.locator('a[href="/category_products/3"]');
+
+        // Product interaction
+        this.firstProductHover = page.locator('.productinfo.text-center').first();
+        this.firstProductAddToCartBtn = page.locator('.overlay-content .add-to-cart').first();
+        this.secondProductHover = page.locator('.productinfo.text-center').nth(1);
+        this.secondProductAddToCartBtn = page.locator('.overlay-content .add-to-cart').nth(1);
 
         // Product Details
         this.productName = page.locator('.product-information h2');
@@ -60,6 +87,7 @@ export class ProductsPage extends BasePage {
         this.reviewMessageInput = page.locator('#review');
         this.reviewSubmitBtn = page.locator('#button-review');
         this.reviewSuccessMsg = page.locator('text=Thank you for your review.');
+        this.writeYourReviewText = page.locator('text=Write Your Review');
     }
 
     async searchProduct(productName: string) {
@@ -97,4 +125,14 @@ export class ProductsPage extends BasePage {
 
         return brandName;
     }
-};
+
+    async addFirstProductToCart() {
+        await this.firstProductHover.hover();
+        await this.firstProductAddToCartBtn.click();
+    }
+
+    async addSecondProductToCart() {
+        await this.secondProductHover.hover();
+        await this.secondProductAddToCartBtn.click();
+    }
+}
