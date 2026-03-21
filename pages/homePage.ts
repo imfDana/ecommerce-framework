@@ -8,6 +8,8 @@ export class HomePage extends BasePage {
     readonly testCasesBtn: Locator;
     readonly homePageItems: Locator;
     readonly wrongCredentialsError: Locator;
+    readonly recommendedItemsTitle: Locator;
+    readonly recommendedAddToCartBtn: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -17,6 +19,8 @@ export class HomePage extends BasePage {
         this.testCasesBtn = page.locator('header').locator('a[href="/test_cases"]').first();
         this.homePageItems = page.getByRole('heading', { name: 'Features Items' });
         this.wrongCredentialsError = page.locator('text=Your email or password is incorrect!');
+        this.recommendedItemsTitle = page.locator('h2:has-text("recommended items")');
+        this.recommendedAddToCartBtn = page.locator('#recommended-item-carousel .add-to-cart').first();
     }
 
     async goto() {

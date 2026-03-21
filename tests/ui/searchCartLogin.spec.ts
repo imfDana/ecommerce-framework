@@ -26,13 +26,12 @@ test('Test Case 20: Search Products and Verify Cart After Login', async ({ page,
     });
 
     await test.step('8. Add to cart', async () => {
-        await page.locator('.productinfo.text-center').first().hover();
-        await page.locator('.overlay-content .add-to-cart').first().click();
-        await page.locator('button.btn-success', { hasText: 'Continue Shopping' }).click();
+        await productsPage.addFirstProductToCart();
+        await productsPage.continueShoppingBtn.click();
     });
 
     await test.step('9. Verify in cart', async () => {
-        await page.locator('header').locator('a[href="/view_cart"]').click();
+        await cartPage.cartBtn.click();
         await expect(cartPage.cartRows).toHaveCount(1);
     });
 
@@ -42,7 +41,7 @@ test('Test Case 20: Search Products and Verify Cart After Login', async ({ page,
     });
 
     await test.step('11-12. Verify in cart after login', async () => {
-        await page.locator('header').locator('a[href="/view_cart"]').click();
+        await cartPage.cartBtn.click();
         await expect(cartPage.cartRows).toHaveCount(1);
     });
 

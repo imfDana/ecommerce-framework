@@ -7,6 +7,7 @@ test.describe('Cart Features Tests', () => {
 
     test('Test Case 12: Add Products in Cart', async ({ page }) => {
         const homePage = new HomePage(page);
+        const productsPage = new ProductsPage(page);
         const cartPage = new CartPage(page);
 
         await test.step('1-3 Setup', async () => {
@@ -19,21 +20,19 @@ test.describe('Cart Features Tests', () => {
         });
 
         await test.step('5. Hover over first product and click Add to cart', async () => {
-            await page.locator('.productinfo.text-center').first().hover();
-            await page.locator('.overlay-content .add-to-cart').first().click();
+            await productsPage.addFirstProductToCart();
         });
 
         await test.step('6. Click Continue Shopping button', async () => {
-            await page.locator('button.btn-success', { hasText: 'Continue Shopping' }).click();
+            await productsPage.continueShoppingBtn.click();
         });
 
         await test.step('7. Hover over second product and click Add to cart', async () => {
-            await page.locator('.productinfo.text-center').nth(1).hover();
-            await page.locator('.overlay-content .add-to-cart').nth(1).click();
+            await productsPage.addSecondProductToCart();
         });
 
         await test.step('8. Click View Cart button', async () => {
-            await page.locator('u', { hasText: 'View Cart' }).click();
+            await productsPage.viewCartLink.click();
         });
 
         await test.step('9. Verify both products are added to Cart & 10. Verify prices, quantity', async () => {
@@ -64,7 +63,7 @@ test.describe('Cart Features Tests', () => {
 
         await test.step('7. Click Add to cart button & 8. Click View Cart button', async () => {
             await productsPage.addToCartBtn.click();
-            await page.locator('u', { hasText: 'View Cart' }).click();
+            await productsPage.viewCartLink.click();
         });
 
         await test.step('9. Verify that product is displayed in cart page with exact quantity', async () => {
@@ -82,9 +81,9 @@ test.describe('Cart Features Tests', () => {
         });
 
         await test.step('4. Add products to cart & 5. Click Cart button', async () => {
-            await page.locator('.productinfo.text-center').first().hover();
-            await page.locator('.overlay-content .add-to-cart').first().click();
-            await page.locator('u', { hasText: 'View Cart' }).click();
+            const productsPage = new ProductsPage(page);
+            await productsPage.addFirstProductToCart();
+            await productsPage.viewCartLink.click();
         });
 
         await test.step('6. Verify that cart page is displayed', async () => {
@@ -96,7 +95,7 @@ test.describe('Cart Features Tests', () => {
         });
 
         await test.step('8. Verify that product is removed from the cart', async () => {
-            await expect(page.locator('#empty_cart')).toBeVisible();
+            await expect(cartPage.emptyCartMsg).toBeVisible();
         });
     });
 
@@ -109,15 +108,15 @@ test.describe('Cart Features Tests', () => {
 
         await test.step('4. Scroll to bottom of page & Verify RECOMMENDED ITEMS are visible', async () => {
             await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-            await expect(page.locator('h2:has-text("recommended items")')).toBeVisible();
+            await expect(homePage.recommendedItemsTitle).toBeVisible();
         });
 
         await test.step('5. Click on Add To Cart on Recommended product', async () => {
-            await page.locator('#recommended-item-carousel .add-to-cart').first().click();
+            await homePage.recommendedAddToCartBtn.click();
         });
 
         await test.step('6. Click on View Cart button & 7. Verify product is displayed in cart page', async () => {
-            await page.locator('u', { hasText: 'View Cart' }).click();
+            await homePage.viewCartLink.click();
             const cartPage = new CartPage(page);
             await expect(cartPage.cartRows).toHaveCount(1);
         });

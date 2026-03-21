@@ -1,6 +1,7 @@
 import { test, expect } from '../../fixtures/base';
 import { HomePage } from '../../pages/homePage';
 import { LoginPage } from '../../pages/loginPage';
+import { SignupPage } from '../../pages/signupPage';
 import { generateUser } from '../../data/dataGenerator';
 import { APIUtils } from '../../utils/apiUtils';
 
@@ -9,6 +10,7 @@ test.describe('Authentication Tests', () => {
     test('Test Case 2: Login User with correct email and password', async ({ page, request }) => {
         const homePage = new HomePage(page);
         const loginPage = new LoginPage(page);
+        const signupPage = new SignupPage(page);
         const apiUtils = new APIUtils(request);
         const user = generateUser();
 
@@ -47,7 +49,7 @@ test.describe('Authentication Tests', () => {
         });
 
         await test.step('10. Verify that ACCOUNT DELETED! is visible', async () => {
-            await expect(page.getByTestId('account-deleted')).toBeVisible();
+            await expect(signupPage.accountDeletedText).toBeVisible();
         });
     });
 
