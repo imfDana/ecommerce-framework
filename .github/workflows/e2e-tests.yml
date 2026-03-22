@@ -24,7 +24,7 @@ jobs:
         run: npx playwright install chromium
 
       - name: Run Playwright tests
-        run: npx playwright test --project=chromium
+        run: npx playwright test --project=ui
 
       - name: Generate Allure Report
         if: always()
