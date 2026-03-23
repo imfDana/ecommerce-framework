@@ -19,6 +19,18 @@ export class CartPage extends BasePage {
         return await this.cartRows.nth(rowIndex).locator('.cart_quantity button').innerText();
     }
 
+    getCartPrice(rowIndex: number): Locator {
+        return this.cartRows.nth(rowIndex).locator('.cart_price');
+    }
+
+    getCartQuantity(rowIndex: number): Locator {
+        return this.cartRows.nth(rowIndex).locator('.cart_quantity');
+    }
+
+    getCartTotal(rowIndex: number): Locator {
+        return this.cartRows.nth(rowIndex).locator('.cart_total');
+    }
+
     async removeCartItem(rowIndex: number) {
         await this.cartRows.nth(rowIndex).locator('.cart_quantity_delete').click();
     }
