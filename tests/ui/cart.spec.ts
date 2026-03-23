@@ -11,8 +11,7 @@ test.describe('Cart Features Tests', () => {
         const cartPage = new CartPage(page);
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
-            await expect(page).toHaveURL('https://automationexercise.com/');
+            await homePage.navigateToHomePageSuccessfuly();
         });
 
         await test.step('4. Click Products button', async () => {
@@ -37,10 +36,11 @@ test.describe('Cart Features Tests', () => {
 
         await test.step('9. Verify both products are added to Cart & 10. Verify prices, quantity', async () => {
             await expect(cartPage.cartRows).toHaveCount(2);
-            await expect(cartPage.cartRows.nth(0).locator('.cart_price')).toBeVisible();
-            await expect(cartPage.cartRows.nth(0).locator('.cart_quantity')).toBeVisible();
-            await expect(cartPage.cartRows.nth(0).locator('.cart_total')).toBeVisible();
+            await expect(cartPage.getCartPrice(0)).toBeVisible();
+            await expect(cartPage.getCartQuantity(0)).toBeVisible();
+            await expect(cartPage.getCartTotal(0)).toBeVisible();
         });
+
     });
 
     test('Test Case 13: Verify Product quantity in Cart', async ({ page }) => {

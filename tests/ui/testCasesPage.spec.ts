@@ -15,8 +15,7 @@ test('Test Case 7: Verify Test Cases Page', async ({ page }) => {
     });
 
     await test.step('5. Verify user is navigated to test cases page successfully', async () => {
-        // change the link for one more secret
-        await expect(page).toHaveURL('https://automationexercise.com/test_cases');
+        await expect(page).toHaveURL('/test_cases');
         await expect(testCasesPage.testCasesTitle).toBeVisible();
     });
 });
