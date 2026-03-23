@@ -23,8 +23,11 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium
 
-      - name: Run Playwright tests
+      - name: Run Playwright tests (UI)
         run: npx playwright test --project=ui
+
+      - name: Run Playwright tests (API)
+        run: npx playwright test --project=api
 
       - name: Generate Allure Report
         if: always()

@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "report": "allure generate ./allure-results --clean && allure open ./allure-report"
+    "test:ui": "playwright test --project=ui",
+    "test:api": "playwright test --project=api",
+    "report": "allure generate ./allure-results --clean && allure open ./allure-report",
+    "clean:results": "npx rimraf allure-results allure-report"
   },
   "keywords": [],
   "author": "",
