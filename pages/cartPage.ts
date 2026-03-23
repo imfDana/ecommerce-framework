@@ -11,7 +11,7 @@ export class CartPage extends BasePage {
         super(page);
         this.cartRows = page.locator('#cart_info_table tbody tr');
         this.proceedToCheckoutBtn = page.locator('text=Proceed To Checkout');
-        this.registerLoginModalBtn = page.locator('u', { hasText: 'Register / Login' });
+        this.registerLoginModalBtn = page.locator('.modal-body').locator('a', { hasText: 'Register / Login' });
         this.emptyCartMsg = page.locator('#empty_cart');
     }
 
