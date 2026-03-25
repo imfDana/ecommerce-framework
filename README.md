@@ -1,5 +1,7 @@
 # E-Commerce E2E Automation Framework
 
+[![E2E Tests with Playwright & Allure](https://github.com/imfDana/ecommerce-framework/actions/workflows/e2e-tests.yml/badge.svg)](https://github.com/imfDana/ecommerce-framework/actions/workflows/e2e-tests.yml)
+
 Comprehensive End-to-End testing framework for [Automation Exercise](https://automationexercise.com/), covering UI and API test cases using **Playwright, TypeScript, Faker.js, and Allure Reports** within a CI/CD pipeline.
 
 ---
