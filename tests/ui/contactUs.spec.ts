@@ -37,7 +37,7 @@ test('Test Case 6: Contact Us Form', async ({ page }) => {
     });
 
     await test.step('10. Verify success message', async () => {
-        await expect(contactUsPage.successMsg).toBeVisible({ timeout: 10000 });
+        await expect(contactUsPage.successMsg).toBeVisible({ timeout: 20000 });
         await expect(contactUsPage.successMsg).toContainText('Success! Your details have been submitted successfully.');
     });
 

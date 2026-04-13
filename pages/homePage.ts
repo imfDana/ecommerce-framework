@@ -29,7 +29,7 @@ export class HomePage extends BasePage {
 
     async navigateToHomePageSuccessfuly() {
         await this.page.goto('/');
-        await expect(this.page).toHaveURL(/.*automationexercise\.com\/?$/);
+        await expect(this.page).toHaveURL('/');
         await expect(this.homePageItems).toBeVisible();
         await this.waitForPageLoad();
     }
