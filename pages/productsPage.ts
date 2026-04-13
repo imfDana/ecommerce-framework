@@ -12,6 +12,7 @@ export class ProductsPage extends BasePage {
     readonly productList: Locator;
     readonly firstProductViewLink: Locator;
     readonly brandLinks: Locator;
+    readonly featuresItems: Locator;
 
     // Categories
     readonly categoryTitle: Locator;
@@ -57,6 +58,7 @@ export class ProductsPage extends BasePage {
         this.poloBrand = page.getByRole('link', { name: '(6) Polo' });
         this.hmBrand = page.getByRole('link', { name: '(5) H&M' });
         this.brandLinks = page.locator('.brands-name a');
+        this.featuresItems = page.locator('.features_items');
 
         // Categories
         this.categoryTitle = page.locator('h2.title');

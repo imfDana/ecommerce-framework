@@ -10,7 +10,7 @@ test.describe('Products Tests', () => {
 
         await test.step('1. Launch browser & 2. Navigate to url & 3. Verify home page', async () => {
             await homePage.goto();
-            await expect(page).toHaveURL('https://automationexercise.com/');
+            await expect(page).toHaveURL('/');
         });
 
         await test.step('4. Click on Products button', async () => {
@@ -43,8 +43,7 @@ test.describe('Products Tests', () => {
         const productsPage = new ProductsPage(page);
 
         await test.step('1-3 Setup', async () => {
-            await homePage.goto();
-            await expect(page).toHaveURL('https://automationexercise.com/');
+            await homePage.navigateToHomePageSuccessfuly();
         });
 
         await test.step('4. Click on Products button & 5. Verify ALL PRODUCTS', async () => {

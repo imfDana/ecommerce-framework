@@ -6,27 +6,32 @@ test.describe('Category & Brand Tests', () => {
 
     test('Test Case 18: View Category Products', async ({ page }) => {
         const homePage = new HomePage(page);
+        const productsPage = new ProductsPage(page);
 
         await test.step('1-3 Setup', async () => {
             await homePage.navigateToHomePageSuccessfuly();
         });
 
         await test.step('4. Click on Women category & 5. Click on Dress sub-category', async () => {
-            await page.locator('a[href="#Women"]').click();
-            await page.locator('a[href="/category_products/1"]').click();
+            await productsPage.womenCategory.click();
+            await productsPage.dressCategory.click();
         });
 
         await test.step('6. Verify that category page is displayed and confirm text WOMEN - DRESS PRODUCTS', async () => {
-            await expect(page.locator('h2.title', { hasText: 'Women - Dress Products' })).toBeVisible();
+            await expect(
+                productsPage.categoryTitle.filter({ hasText: 'Women - Dress Products' }),
+            ).toBeVisible();
         });
 
         await test.step('7. On left side bar, click on any sub-category link of Men category', async () => {
-            await page.locator('a[href="#Men"]').click();
-            await page.locator('a[href="/category_products/3"]').click();
+            await productsPage.menCategory.click();
+            await productsPage.tshirtCategory.click();
         });
 
         await test.step('8. Verify that user is navigated to that category page', async () => {
-            await expect(page.locator('h2.title', { hasText: 'Men - Tshirts Products' })).toBeVisible();
+            await expect(
+                productsPage.categoryTitle.filter({ hasText: 'Men - Tshirts Products' }),
+            ).toBeVisible();
         });
     });
 
@@ -49,7 +54,7 @@ test.describe('Category & Brand Tests', () => {
         await test.step('5. Click on first brand & 6. Verify navigation', async () => {
             firstBrandSelected = await productsPage.selectRandomBrand();
             await expect(page).toHaveURL(/.*brand_products\/.+/);
-            await expect(page.locator('.features_items')).toBeVisible();
+            await expect(productsPage.featuresItems).toBeVisible();
         });
 
         await test.step('7. Click on any OTHER brand link', async () => {
@@ -60,7 +65,7 @@ test.describe('Category & Brand Tests', () => {
         await test.step('8. Verify navigation to the second brand page', async () => {
             const regex = new RegExp(`brand_products/${secondBrandSelected}`, 'i');
             await expect(page).toHaveURL(regex);
-            await expect(page.locator('.features_items')).toBeVisible();
+            await expect(productsPage.featuresItems).toBeVisible();
         });
     });
 });
